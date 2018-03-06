@@ -1,0 +1,1 @@
+java -jar /home/vdp5/source_code/GenomeAnalysisTK.jar -T FastaAlternateReferenceMaker -R /home/vdp5/data/reference_genomes/PVP01.fasta -o ../data/alternate_fasta/alternate_test.fasta -V $1 

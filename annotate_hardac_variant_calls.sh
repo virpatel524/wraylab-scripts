@@ -1,0 +1,1 @@
+java -jar /newhome/vdp5/source_code/snpEff/snpEff.jar ANN PVP01 $1 -noStats -t 4 > ../data/all_variants_hardac.vcf

@@ -1,0 +1,1 @@
+distruct.py -K $2 --input /home/vdp5/projects/vivax_cambodia/data/structure_out/$1/$1 --output /home/vdp5/projects/vivax_cambodia/data/distrust/{$1}_Kof_{$2}
