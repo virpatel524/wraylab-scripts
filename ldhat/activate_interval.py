@@ -21,5 +21,5 @@ for alpha in os.listdir('{}'.format(args.dir)):
 		process = subprocess.Popen([newstr,], stdout=subprocess.PIPE,shell=True)
 		process.wait()
 
-		newstr = 'interval -seq {} -loc {} -prefix {} -its 100000 -bpen 5 -samp 2000 -lk {}'.format(splitter + 'sites.txt', splitter + 'locs', splitter, args.lk)
+		newstr = 'interval -seq {} -loc {} -prefix {} -its 100000 -bpen 5 -samp 2000 -lk {}'.format(splitter + 'sites.txt', splitter + 'locs.txt', splitter, args.lk)
 		process = subprocess.Popen([newstr,], stdout=subprocess.PIPE,shell=True)
