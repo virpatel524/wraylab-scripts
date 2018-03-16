@@ -22,6 +22,7 @@ ifnotcontainer = 0
 
 
 for alpha in data:
+	if len(alpha) == 0: continue
 	if alpha[0][0] == '>':
 		countersamp += 1
 		txt = alpha[0]
