@@ -42,7 +42,7 @@ name = '.'.join(holder)
 
 newfle = open(name, 'w')
 
-newfle.write('{}\t{}\t{}\n'.format(countersamp, length, 1))
+newfle.write('{}\t{}\t{}\n'.format(countersamp, length + 1, 1))
 
 
 for alpha in newholder:
