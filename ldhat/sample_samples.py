@@ -22,7 +22,7 @@ setters = {}
 
 src = ''
 
-for beta in data[1:]:
+for beta in data[0:]:
 	if '>' in beta[0]:
 		src = beta[0]
 		setters.setdefault(src, []).append(beta)
@@ -40,7 +40,7 @@ inputline[0] = str(sampsize)
 
 newfle = open(os.path.join(args.inputfile + '.{}reduced.fasta'.format(sampsize)), 'w')
 
-newfle.write('\t'.join(inputline) + '\n')
+# newfle.write('\t'.join(inputline) + '\n')
 for samp in keepers:
 	for item in setters[samp]:
 		newfle.write('\t'.join(item) + '\n')

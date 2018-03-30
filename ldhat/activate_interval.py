@@ -17,9 +17,9 @@ for alpha in os.listdir('{}'.format(args.dir)):
 		splitter = os.path.join(args.dir, '.'.join(alpha.split('.')[:-4]) + '.')
 		print splitter
 		newstr = 'convert -seq {} -prefix {}'.format(os.path.join('{}'.format(args.dir),alpha), splitter)
-		# print newstr
 		process = subprocess.Popen([newstr,], stdout=subprocess.PIPE,shell=True)
 		process.wait()
 
 		newstr = 'interval -seq {} -loc {} -prefix {} -its 100000 -bpen 5 -samp 2000 -lk {}'.format(splitter + 'sites.txt', splitter + 'locs.txt', splitter, args.lk)
+		print newstr
 		process = subprocess.Popen([newstr,], stdout=subprocess.PIPE,shell=True)

@@ -21,18 +21,26 @@ countersamp = 0
 ifnotcontainer = 0
 
 
+samp2output = {}
+samp = ''
+
 for alpha in data:
+	if len(alpha[0]) == 0: continue
 	if alpha[0][0] == '>':
+		samp = alpha[0].split(' ')[0]
 		countersamp += 1
-		txt = alpha[0]
-		if ifnotcontainer != 0:
-			length = ifnotcontainer
-			ifnotcontainer = 0
-		newholder.append(txt.split('-')[0])
+
 
 	else:
-		newholder.append(alpha[0])
-		ifnotcontainer += len(alpha[0])
+		samp2output.setdefault(samp, []).append(alpha[0])
+
+
+for beta in samp2output:
+	samp2output[beta] = ''.join(samp2output[beta])
+	length = len(''.join(samp2output[beta]))
+
+
+
 
 name = args.fastafile
 holder = name.split('.') 
@@ -44,7 +52,8 @@ newfle = open(name, 'w')
 newfle.write('{}\t{}\t{}\n'.format(countersamp, length, 1))
 
 
-for alpha in newholder:
-	newfle.write(alpha + '\n')
-
+for alpha in samp2output:
+	newfle.write('{}\n'.format(alpha))
+	newfle.write(samp2output[alpha] + '\n')
 newfle.close()
+
