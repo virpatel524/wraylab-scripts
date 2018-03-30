@@ -22,7 +22,6 @@ ifnotcontainer = 0
 
 
 for alpha in data:
-	if len(alpha) == 0: continue
 	if alpha[0][0] == '>':
 		countersamp += 1
 		txt = alpha[0]
@@ -42,7 +41,7 @@ name = '.'.join(holder)
 
 newfle = open(name, 'w')
 
-newfle.write('{}\t{}\t{}\n'.format(countersamp, length + 1, 1))
+newfle.write('{}\t{}\t{}\n'.format(countersamp, length, 1))
 
 
 for alpha in newholder:
