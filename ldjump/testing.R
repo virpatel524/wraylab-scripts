@@ -1,0 +1,3 @@
+require(LDJump)
+
+LDJump('/newhome/vdp5/projects/vivax_cambodia/data/ldhat/vcf1_2-r2/5iter_allvariants_filtered.rareremove.deploidcorrected.notrelevantremoved.nopirvirvariants.ann.vcf.LT635620.fasta.40reduced.fasta', alpha = 0.05, segLength = 1000, pathLDhat = "/home/vdp5/source_code/LDhat/", format = "fasta", refName = NULL, start = NULL, thth = 0.01, constant = F, status = T, cores = 1, accept = T, demography = F)

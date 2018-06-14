@@ -1,0 +1,7 @@
+Segregating sites      =       49
+Average PWD            =   10.076
+Watterson theta        =   11.520
+Tajima D statistic     =   -0.446
+Fu and Li D* statistic =   -1.482
+Variance PWD           =  116.385
+

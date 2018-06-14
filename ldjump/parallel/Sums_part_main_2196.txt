@@ -1,0 +1,6 @@
+Segregating sites=0
+Average PWD=0
+Watterson theta=0
+Tajima D statistic=0
+Fu and Li D* statistic=0
+Variance PWD=0

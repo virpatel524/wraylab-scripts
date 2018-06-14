@@ -15,18 +15,16 @@ import pandas
 import argparse
 import h5py
 import math
+import numpy
 
 
-def plot_fst(ac1, ac2, pos, chrom, blen=1):
+def plot_fst(genotype, pos, chrom, blen=1):
 		
-		fst, se, vb, _ = allel.stats.blockwise_hudson_fst(ac1, ac2, blen=blen)
+		fst, se, vb, _ = allel.stats.blockwise_weir_cockerham_fst(genotype, subpops=[pop1_idx,pop3_idx],blen=blen)
 		
 		# use the per-block average Fst as the Y coordinate
 		y = vb
 		
-
-
-
 		# use the block centres as the X coordinate
 		x = allel.stats.moving_statistic(pos, statistic=lambda v: (v[0] + v[-1]) / 2, size=blen)
 		print chrom, len(x), len(y)
@@ -34,6 +32,7 @@ def plot_fst(ac1, ac2, pos, chrom, blen=1):
 		for i in xrange(len(x)):
 			if float(y[i]) < 0: continue
 			if math.isnan(y[i]) : continue
+			values.append(float(y[i]))
 			totset.append(['{}_{}'.format(chrom, str(x[i])), str(x[i]), chrom2num[chrom], str(y[i])])
 
 		print len(totset)
@@ -64,7 +63,7 @@ properlst = [a[0] for a in chromlist if 'LT' in a[0] and '26' not in a[0] and '2
 
 totset = []
 
-
+values = []
 for chromname in properlst:
 	vcfname = '/nfs/wraycompute/vir/variant_storage/master/split/regular/5iter_allvariants_filtered.rareremove.deploidcorrected.notrelevantremoved.nopirvirvariants.ann.{}.vcf'.format(chromname)
 	callset = allel.read_vcf(vcfname)
@@ -92,6 +91,11 @@ for chromname in properlst:
 
 	}
 
+	pop1_idx = subpops[pop1]
+	pop2_idx = subpops[pop2]
+	pop3_idx = subpops[pop3]
+
+
 	acs = genotype_all.count_alleles_subpops(subpops)
 
 	acu = allel.AlleleCountsArray(acs[pop1][:] + acs[pop2][:])
@@ -99,14 +103,14 @@ for chromname in properlst:
 	pos = pos_all.compress(flt)
 	ac1 = allel.AlleleCountsArray(acs[pop1].compress(flt, axis=0)[:, :2])
 	ac2 = allel.AlleleCountsArray(acs[pop2].compress(flt, axis=0)[:, :2])
-	# ac3 = allel.AlleleCountsArray(acs[pop3].compress(flt, axis=0)[:, :2])
+	ac3 = allel.AlleleCountsArray(acs[pop3].compress(flt, axis=0)[:, :2])
 	genotype = genotype_all.compress(flt, axis=0)
 
-	plot_fst(ac1, ac2, pos, chromname)
+	plot_fst(genotype, pos, chromname)
 
 print len(totset)
 
-newfle = open('/home/vdp5/projects/vivax_cambodia/data/poptests/fst/MT-CV_hudsonfst.txt', 'w')
+newfle = open('/home/vdp5/projects/vivax_cambodia/data/poptests/fst/MT-CV_weirfst.txt', 'w')
 
 newfle.write('snp\tbp\tchrom\tFST\n')
 
@@ -117,7 +121,7 @@ for item in totset:
 newfle.close()
 
 
-newfle = open('/home/vdp5/projects/vivax_cambodia/data/poptests/fst/MT-CV_hudsonfst_topset.txt', 'w')
+newfle = open('/home/vdp5/projects/vivax_cambodia/data/poptests/fst/MT-CV_weirfst_topset.txt', 'w')
 
 
 percentile  = int(float(len(totset)) * 0.001) + 1
@@ -139,5 +143,7 @@ for item in wanted:
 	tmp = item
 	tmp[-1] = str(tmp[-1])
 	newfle.write('{}\n'.format(tmp[0]))
+
+print numpy.mean(values)
 
 newfle.close()

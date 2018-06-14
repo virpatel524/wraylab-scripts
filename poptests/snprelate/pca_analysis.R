@@ -11,7 +11,7 @@ snpset <- snpgdsLDpruning(genofile, ld.threshold=0.5)
 snpset.id <- unlist(snpset)
 
 sample.id <- read.gdsn(index.gdsn(genofile, "sample.id"))
-pca <- snpgdsPCA(genofile, snp.id=snpset.id, num.thread=4)
+pca <- snpgdsPCA(genofile, snp.id=snpset.id, num.thread=6)
 
 pca.percent <- pca$varprop*100
 head(round(pca.percent, 2))
@@ -22,10 +22,10 @@ tab <- data.frame(sample.id = pca$sample.id,
     EV1 = pca$eigenvect[,1],    # the first eigenvector
     EV2 = pca$eigenvect[,2],    # the second eigenvector
     stringsAsFactors = FALSE)
-pdf('/home/vdp5/projects/vivax_cambodia/data/figures/population_figures/pca_eg1_eg2_#VCF1_ld0.5.pdf')
-plot(tab$EV2, tab$EV1, col=as.integer(tab$pop), xlab="eigenvector 2", ylab="eigenvector 1")
-legend("topright", legend=levels(tab$pop), pch="o", col=1:nlevels(tab$pop))
+tiff('/home/vdp5/projects/vivax_cambodia/data/figures/population_figures/pca_eg1_eg2_#VCF1_ld0.5.tiff')
 dev.off()
+plot(tab$EV2, tab$EV1, col=as.integer(tab$pop), xlab="eigenvector 2", ylab="eigenvector 1")
+legend("topright", legend=levels(tab$pop), pch="o", col=1:nlevels(tab$pop), cex=1.3)
 
 
 
@@ -100,22 +100,22 @@ dev.off()
 
 # # experiment
 
-pop_code <- unlist(read.table('/newhome/vdp5/projects/vivax_cambodia/data/txt_files/lists_gatk/all_sample_#VCF1_experimentlabel.txt'))
+# pop_code <- unlist(read.table('/newhome/vdp5/projects/vivax_cambodia/data/txt_files/lists_gatk/all_sample_#VCF1_experimentlabel.txt'))
 
 
-set.seed(1000)
-snpset <- snpgdsLDpruning(genofile, ld.threshold=0.5)
-snpset.id <- unlist(snpset)
+# set.seed(1000)
+# snpset <- snpgdsLDpruning(genofile, ld.threshold=0.5)
+# snpset.id <- unlist(snpset)
 
-sample.id <- read.gdsn(index.gdsn(genofile, "sample.id"))
-pca <- snpgdsPCA(genofile, snp.id=snpset.id, num.thread=1)
+# sample.id <- read.gdsn(index.gdsn(genofile, "sample.id"))
+# pca <- snpgdsPCA(genofile, snp.id=snpset.id, num.thread=1)
 
-tab <- data.frame(sample.id = pca$sample.id,
-    pop = factor(pop_code)[match(pca$sample.id, sample.id)],
-    EV1 = pca$eigenvect[,1],    # the first eigenvector
-    EV2 = pca$eigenvect[,2],    # the second eigenvector
-    stringsAsFactors = FALSE)
-pdf('/home/vdp5/projects/vivax_cambodia/data/figures/population_figures/pca_eg1_eg2_#VCF1_ld0.5.experiment.nopop.pdf')
-plot(tab$EV2, tab$EV1, col=as.integer(tab$pop), xlab="eigenvector 2", ylab="eigenvector 1")
-legend("topright", legend=levels(tab$pop), pch="o", col=1:nlevels(tab$pop))
-dev.off()
+# tab <- data.frame(sample.id = pca$sample.id,
+#     pop = factor(pop_code)[match(pca$sample.id, sample.id)],
+#     EV1 = pca$eigenvect[,1],    # the first eigenvector
+#     EV2 = pca$eigenvect[,2],    # the second eigenvector
+#     stringsAsFactors = FALSE)
+# tiff('/home/vdp5/projects/vivax_cambodia/data/figures/population_figures/pca_eg1_eg2_#VCF1_ld0.5.experiment.nopop.tiff',res=300)
+# dev.off()
+# plot(tab$EV2, tab$EV1, col=as.integer(tab$pop), xlab="eigenvector 2", ylab="eigenvector 1")
+# legend("topright", legend=levels(tab$pop), pch="o", col=1:nlevels(tab$pop))

@@ -24,9 +24,9 @@ newstr = 'bcftools query -l {} > /tmp/samplelst.txt'.format(args.vcffile)
 process = subprocess.Popen([newstr,], stdout=subprocess.PIPE,shell=True)
 process.wait()
 
-# newstr = 'zcat {} | vcf-to-tab > {}.tab'.format(args.vcffile, args.vcffile)
-# process = subprocess.Popen([newstr,], stdout=subprocess.PIPE,shell=True)
-# process.wait()
+newstr = 'zcat {} | vcf-to-tab > {}.tab'.format(args.vcffile, args.vcffile)
+process = subprocess.Popen([newstr,], stdout=subprocess.PIPE,shell=True)
+process.wait()
 
 chrom2subjects = {}
 
@@ -48,19 +48,13 @@ for chrom in lendict:
 		process.wait()
 
 		locs = open('{}/{}.{}.locs'.format(args.output_alignments, vcfparse, chrom), 'w')
-
+		print chrom2subjects
 		lst = sorted(chrom2subjects[chrom])
 
 		lst = [str(a) for a in lst]
 
-		locs.write('{}\t{}\t{}\n'.format(len(lst), lendict[chrom], 'C'))
+		locs.write('{}\t{}\t{}\n'.format(len(lst), lendict[chrom] - 1, 'C'))
 
 
 		locs.write('{}\n'.format('\t'.join(lst)))
 		locs.close()
-
-
-
-
-
-

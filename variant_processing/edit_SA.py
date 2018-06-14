@@ -1,0 +1,1 @@
+# edit SA vcf such that there are no [0] type sample names bc they look ugly. 

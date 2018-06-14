@@ -1,0 +1,1 @@
+Maximum at 4Ner(region) = 0.000 : Lk = NA

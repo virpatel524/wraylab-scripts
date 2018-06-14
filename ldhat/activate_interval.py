@@ -14,12 +14,15 @@ args = parser.parse_args()
 
 for alpha in os.listdir('{}'.format(args.dir)):
 	if 'headeredited' in alpha:
-		splitter = os.path.join(args.dir, '.'.join(alpha.split('.')[:-4]) + '.')
+		if '.txt' in alpha: continue
+		splitter = os.path.join(args.dir, '.'.join(alpha.split('.')[:-1]) + '.')
 		print splitter
-		newstr = 'convert -seq {} -prefix {}'.format(os.path.join('{}'.format(args.dir),alpha), splitter)
+		# newstr = 'convert -seq {} -prefix {} -nout 50'.format(os.path.join('{}'.format(args.dir),alpha), splitter)
+		# process = subprocess.Popen([newstr,], stdout=subprocess.PIPE,shell=True)
+		# process.wait()
+
+		newstr = '/newhome/vdp5/source_code/LDhat/stat -input {}rates.txt -prefix {} -loc {}locs.txt'.format(splitter, splitter, splitter)
 		process = subprocess.Popen([newstr,], stdout=subprocess.PIPE,shell=True)
 		process.wait()
 
-		newstr = 'interval -seq {} -loc {} -prefix {} -its 100000 -bpen 5 -samp 2000 -lk {}'.format(splitter + 'sites.txt', splitter + 'locs.txt', splitter, args.lk)
-		print newstr
-		process = subprocess.Popen([newstr,], stdout=subprocess.PIPE,shell=True)
+
